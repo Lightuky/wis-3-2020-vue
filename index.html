@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Bibliothèque cinématographique dynamique">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Movima</title>
+    <link rel="stylesheet" href="resources/css/app.css">
+    <link rel="icon" type="image/png" href="img/icons/icon-512x512.png">
+</head>
+<body>
+    <div id="app" class="d-flex flex-column">
+        <header id="header"></header>
+        <main id="main" class="flex-grow-1" v-cloak>
+            <div class="container">
+                <div class="form-group m-4 w-50 mx-auto">
+                    <input type="text" v-model="searchString" placeholder="Recherchez votre film" class="form-control" id="searchInput"/>
+                </div>
+                <div class="bg-light rounded">
+                    <div class="d-flex justify-content-around text-center" id="listHeader">
+                        <div class="w-25 my-4 border-right border-primary align-self-center">
+                            <button class="btn btn btn-outline-primary btn-lg" @click="sortKey = 'title'">Titre <i class="fas fa-sort"></i></button>
+                        </div>
+                        <div class="w-25 my-4 border-right border-primary align-self-center">
+                            <button class="btn btn btn-outline-primary btn-lg" @click="sortKey = 'year'">Année <i class="fas fa-sort"></i></button>
+                        </div>
+                        <div class="w-25 my-4 border-right border-primary align-self-center">
+                            <div class="btn btn btn-outline-primary btn-lg">Genre</div>
+                        </div>
+                        <div class="w-25 my-4 border-right border-primary align-self-center">
+                            <button class="btn btn btn-outline-primary btn-lg" @click="sortKey = 'rate'">Note <i class="fas fa-sort"></i></button>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-column movieList">
+                        <div v-for="(movie, index) in SortedMovies" :class="[`i-${index}`]" class="movieBlock text-center py-4 my-2 text-light" @click="toggleByIndex(index)">
+                            <div class="movieInfoList d-flex justify-content-around align-items-center">
+                                <div class="w-25">{{movie.fr_title}}</div>
+                                <div class="w-25">{{movie.year}}</div>
+                                <div class="w-25 d-flex justify-content-center">
+                                    <div v-for="(genres, i) in movie.genre">
+                                       <span v-if="i !== 0 && i <= 2">, </span><span v-if="i <= 2">{{genres}}</span>
+                                    </div>
+                                </div>
+                                <div class="w-25">{{movie.rate}} <i class="fas fa-star" style="padding-bottom: 5px"></i></div>
+                            </div>
+                            <div class="movieInfoBlock d-none">
+                                <div class="w-50">
+                                    <img :src="'img/movies/' + movie.picture + '.jpg'" :alt="movie.fr_title">
+                                </div>
+                                <div class="w-50 mr-2">
+                                    <div class="h2">{{movie.fr_title}}</div>
+                                    <div class="small">(Titre Original : {{movie.title}})</div>
+                                    <div class="mt-5">
+                                        <div class="movieInfoCat d-flex justify-content-around align-items-center">
+                                            <div class="h5 text-left w-50 my-1">Producteur :</div>
+                                            <div class="w-50 pl-5 font-weight-normal">{{movie.director}}</div>
+                                        </div>
+                                        <div class="movieInfoCat d-flex justify-content-around align-items-center">
+                                            <div class="h5 text-left w-50 my-1">Durée du film :</div>
+                                            <div class="w-50 pl-5 font-weight-normal">{{movie.duration}}</div>
+                                        </div>
+                                        <div class="movieInfoCat d-flex justify-content-around align-items-center">
+                                            <div class="h5 text-left w-50 my-1">Année de sortie :</div>
+                                            <div class="w-50 pl-5 font-weight-normal">{{movie.year}}</div>
+                                        </div>
+                                        <div class="movieInfoCat d-flex justify-content-around align-items-center">
+                                            <div class="h5 text-left w-50 my-1">Genre(s) :</div>
+                                            <div class="genresList w-50 pl-5 font-weight-normal d-flex justify-content-center">
+                                                <div v-for="(genres, i) in movie.genre">
+                                                    <span v-if="i !== 0">, </span><span>{{genres}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="movieInfoCat d-flex justify-content-around align-items-center">
+                                            <div class="h5 text-left w-50 my-1">Note :</div>
+                                            <div class="w-50 pl-5 font-weight-normal">{{movie.rate}} <i class="fas fa-star" style="padding-bottom: 5px"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="d-none">
+                                        <button class="btn border-light text-white mt-3">Ajouter à ma watchlist</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer id="footer" class="mt-4 p-2 bg-dark text-light font-weight-bold text-center">&copy; <span id="copyYear"></span>, WIS Nantes</footer>
+    </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/7f8ca92050.js" crossorigin="anonymous"></script>
+<script src="includes/movies.js"></script>
+<script src="resources/js/app.js"></script>
+</body>
+</html>

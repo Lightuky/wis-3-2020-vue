@@ -1,0 +1,55 @@
+body {
+    background: url('../../img/bg.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#app {min-height: 100vh;}
+
+#searchInput {
+color: royalblue;
+font-weight: bold;
+}
+
+#searchInput::placeholder {color: steelblue;}
+
+#listHeader {background-color: rgb(176,204,255);}
+
+#listHeader div .btn {
+    font-weight: bold;
+    border-width: 2px;
+}
+
+#listHeader .w-25:last-child {border-right: none!important;}
+
+.movieList {background-color: #012059;}
+
+.movieBlock {
+    background-color: rgb(100,149,237);
+    font-weight: 600;
+    border-radius: 3px;
+}
+
+.movieBlock:hover {
+    cursor: pointer;
+    background-color: rgb(43 119 255);
+}
+
+.movieActive {background-color: rgb(43 119 255);}
+
+.movieInfoBlock {display: flex}
+
+.movieInfoBlock:hover {cursor: initial}
+
+.movieInfoBlock img {
+    width: 250px;
+    height: 350px;
+    border-radius: 5px;
+    border: 2px solid white;
+}
+
+.movieInfoBlock .genresList {font-size: smaller}
+
+.movieInfoBlock .movieInfoCat {border-bottom: 1px solid #5eadef;}
