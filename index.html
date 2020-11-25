@@ -22,16 +22,16 @@
                 <div class="bg-light rounded">
                     <div class="d-flex justify-content-around text-center" id="listHeader">
                         <div class="w-25 my-4 border-right border-primary align-self-center">
-                            <button class="btn btn btn-outline-primary btn-lg" @click="sortKey = 'title'">Titre <i class="fas fa-sort"></i></button>
+                            <button class="btn btn btn-outline-primary btn-lg" @click="sortKey = 'title'; sortOrder === 'down' ? sortOrder = 'up' : sortOrder = 'down'">Titre <i class="fas fa-sort"></i></button>
                         </div>
                         <div class="w-25 my-4 border-right border-primary align-self-center">
-                            <button class="btn btn btn-outline-primary btn-lg" @click="sortKey = 'year'">Année <i class="fas fa-sort"></i></button>
+                            <button class="btn btn btn-outline-primary btn-lg" @click="sortKey = 'year'; sortOrder === 'down' ? sortOrder = 'up' : sortOrder = 'down'">Année <i class="fas fa-sort"></i></button>
                         </div>
                         <div class="w-25 my-4 border-right border-primary align-self-center">
                             <div class="btn btn btn-outline-primary btn-lg">Genre</div>
                         </div>
                         <div class="w-25 my-4 border-right border-primary align-self-center">
-                            <button class="btn btn btn-outline-primary btn-lg" @click="sortKey = 'rate'">Note <i class="fas fa-sort"></i></button>
+                            <button class="btn btn btn-outline-primary btn-lg" @click="sortKey = 'rate'; sortOrder === 'down' ? sortOrder = 'up' : sortOrder = 'down'">Note <i class="fas fa-sort"></i></button>
                         </div>
                     </div>
                     <div class="d-flex flex-column movieList">

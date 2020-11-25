@@ -1286,7 +1286,7 @@ const movies_data = [
             "S.F"
         ],
         "rate": 8.3,
-        "picture": "Du soleil plein la tête",
+        "picture": "du-soleil-plein-la-tete",
         "fr_title": "Du soleil plein la tête"
 
     },
@@ -2228,7 +2228,7 @@ const movies_data = [
             "Drame"
         ],
         "rate": 8.2,
-        "picture": "Le Loup de Wall Street",
+        "picture": "loup-wall-street",
         "fr_title": "Le Loup de Wall Street"
 
     },
