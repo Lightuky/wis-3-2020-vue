@@ -50,10 +50,50 @@ let movies_array = new Vue({
     },
     methods: {
         toggleByIndex: function(index){
-            let movieBlockIndex = ".movieBlock.i-" + index;
+            let movieBlockIndex = ".movieBlock.p-" + index;
             $(movieBlockIndex).toggleClass("movieActive");
             $(movieBlockIndex + " .movieInfoBlock").toggleClass("d-none");
             $(movieBlockIndex + " .movieInfoList").toggleClass("d-none d-flex");
+        },
+        checkWatchlist: function(picture){
+            this.updateLocalStorage(picture, "check");
+        },
+        updateWatchlist: function(picture) {
+            this.updateLocalStorage(picture, "update");
+        },
+        updateLocalStorage: function (picture, state) {
+            let localWatchList = JSON.parse(localStorage.getItem("watchlist"));
+            let movieBlockIndexButton = ".movieBlock.p-" + picture + " .movieInfoBlock .buttonWatchlist";
+            if (localWatchList === null) {
+                if (state === "check") {
+                    localStorage.setItem("watchlist",JSON.stringify(localWatchList));
+                    $(movieBlockIndexButton).text("Ajouter à la watchlist");
+                }
+                else if (state === "update") {
+                    localStorage.setItem("watchlist",JSON.stringify([picture]));
+                }
+            }
+            else {
+                if($.inArray(picture, localWatchList) !== -1) {
+                    if (state === "check") {
+                        $(movieBlockIndexButton).text("Retirer de la watchlist");
+                    }
+                    else if (state === "update") {
+                        let indexPicture = localWatchList.indexOf(picture);
+                        localWatchList.splice(indexPicture, 1);
+                        localStorage.setItem("watchlist",JSON.stringify(localWatchList));
+                    }
+                }
+                else {
+                    if (state === "check") {
+                        $(movieBlockIndexButton).text("Ajouter à la watchlist");
+                    }
+                    else if (state === "update") {
+                        localWatchList.push(picture);
+                        localStorage.setItem("watchlist",JSON.stringify(localWatchList));
+                    }
+                }
+            }
         }
     }
 });

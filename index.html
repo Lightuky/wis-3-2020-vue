@@ -35,8 +35,8 @@
                         </div>
                     </div>
                     <div class="d-flex flex-column movieList">
-                        <div v-for="(movie, index) in SortedMovies" :class="[`i-${index}`]" class="movieBlock text-center py-4 my-2 text-light" @click="toggleByIndex(index)">
-                            <div class="movieInfoList d-flex justify-content-around align-items-center">
+                        <div v-for="(movie, index) in SortedMovies" :class="[`p-${movie.picture}`,`i-${index}`]" class="movieBlock text-center my-2 text-light" @click="toggleByIndex(movie.picture)">
+                            <div class="movieInfoList py-4 d-flex justify-content-around align-items-center">
                                 <div class="w-25">{{movie.fr_title}}</div>
                                 <div class="w-25">{{movie.year}}</div>
                                 <div class="w-25 d-flex justify-content-center">
@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="w-25">{{movie.rate}} <i class="fas fa-star" style="padding-bottom: 5px"></i></div>
                             </div>
-                            <div class="movieInfoBlock d-none">
+                            <div class="movieInfoBlock py-4 d-none">
                                 <div class="w-50">
                                     <img :src="'img/movies/' + movie.picture + '.jpg'" :alt="movie.fr_title">
                                 </div>
@@ -79,8 +79,8 @@
                                             <div class="w-50 pl-5 font-weight-normal">{{movie.rate}} <i class="fas fa-star" style="padding-bottom: 5px"></i></div>
                                         </div>
                                     </div>
-                                    <div class="d-none">
-                                        <button class="btn border-light text-white mt-3">Ajouter à ma watchlist</button>
+                                    <div class="">
+                                        <button class="btn btn-outline-light mt-3 buttonWatchlist" @click="updateWatchlist(movie.picture)">{{checkWatchlist(movie.picture, movie.index)}}</button>
                                     </div>
                                 </div>
                             </div>
